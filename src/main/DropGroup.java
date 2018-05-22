@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aionxmlparser.tmp2;
+package main;
 
 import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -14,21 +14,28 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author smit
  */
-@XmlRootElement (name = "npc_drops")
-public class NpcDrops {
-    ArrayList<NpcDrop> npc_drop = new ArrayList();
+@XmlRootElement
+public class DropGroup {
+    String name;
+    ArrayList<Drop> drop = new ArrayList();
 
-    public ArrayList<NpcDrop> getNpc_drop() {
-        return npc_drop;
+    public ArrayList<Drop> getDrop() {
+        return drop;
     }
 
     @XmlElement
-    public void setNpc_drop(ArrayList<NpcDrop> npc_drop) {
-        this.npc_drop = npc_drop;
+    public void setDrop(ArrayList<Drop> drop) {
+        this.drop = drop;
+    }
+    
+    public String getName() {
+        return name;
     }
 
-
-    
+    @XmlAttribute
+    public void setName(String name) {
+        this.name = name;
+    }
     
     
 }

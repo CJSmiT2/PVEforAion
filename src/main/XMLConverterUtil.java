@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aionxmlparser.tmp2;
+package main;
 
 import java.io.File;
 import javax.xml.bind.JAXBContext;
