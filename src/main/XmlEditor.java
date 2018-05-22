@@ -14,7 +14,7 @@ import java.io.File;
 class XmlEditor {
 
     XmlEditor(String itemId, String percent, File file) {
-        System.out.println("XmlEditor inited! Reading file..");
+        System.out.println("XmlEditor inited! Reading file: " + file.getName());
         
         int id = Integer.valueOf(itemId);
         NpcDrops drops = XMLConverterUtil.toObject(file);
@@ -36,13 +36,13 @@ class XmlEditor {
         }
         
         if (found){
-            System.out.println("Searching complete!");
-            System.out.println("Start saving data to file!");
+            System.out.println("Starting save data in xml file...");
             XMLConverterUtil.toXml(drops, file);
-            System.out.println("Data success saved! Complete and exit!");
+            System.out.println("Save complete!");
         } else {
-            System.out.println("item_id not found in file! Exit...");
+            System.out.println("item_id not found in file.");
         }
+        
     }
     
 }

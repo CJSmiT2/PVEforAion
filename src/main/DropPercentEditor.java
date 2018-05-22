@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,16 +19,14 @@ public class DropPercentEditor {
     
     public static void main(String[] args) {
         System.out.println("Aion drop editor v0.1 by SmiT started!");
-        System.out.println("Enter path for drop file:");
+        System.out.println("Enter path for folder with files:");
         
-        String filePath = readInput();
+        String path = readInput();
 
         
-        File file = new File(filePath);
-        if (file.exists()) {
-            System.out.println("File success found! " + file.getAbsolutePath());
-        } else {
-            System.err.println("File by path not found!" + file.getAbsolutePath());
+        File folder = new File(path);
+        if (!folder.exists()) {
+            System.err.println("Folder not found!" + folder.getAbsolutePath());
             System.exit(1);
         }
         
@@ -36,8 +35,17 @@ public class DropPercentEditor {
         String itemId = readInput();
         System.out.println("Enter percent: ");
         String percent = readInput();
-
-        XmlEditor editor = new XmlEditor(itemId, percent, file);
+        
+        ArrayList<File> xmlFiles = FilesUtil.getFilesInFolder(folder.getAbsolutePath());
+        
+        for (File file:xmlFiles){
+            if (file.getName().contains(".xml")){
+                XmlEditor editor = new XmlEditor(itemId, percent, file);
+            }
+            
+        }
+        
+        System.out.println("Complete and exit!");
  
     }
 
