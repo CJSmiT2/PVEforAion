@@ -79,10 +79,11 @@ class XmlEditor2 {
             }
             
             if (found){
-                System.out.println("Starting save files...");
+                System.out.println(file.getName()+ " Starting save files...");
                 XMLConverterUtil.toXml(drops, file);
                 System.out.println("Files success saved!");
             }
+            
         }
         
         System.out.println("Editing complete!");
