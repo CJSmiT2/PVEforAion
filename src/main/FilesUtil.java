@@ -13,10 +13,9 @@ import java.util.ArrayList;
  * @author smit
  */
 public class FilesUtil {
-    public static ArrayList<File> getFilesInFolder(String path){
+    public static ArrayList<File> getFilesInFolder(File folder){
         ArrayList<File> filesList = new ArrayList();
         
-        File folder = new File(path);
         File[] listOfFiles = folder.listFiles();
 
         for (int i = 0; i < listOfFiles.length; i++) {

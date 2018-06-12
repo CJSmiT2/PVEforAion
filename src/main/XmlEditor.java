@@ -11,6 +11,8 @@ import java.io.File;
  *
  * @author smit
  */
+
+// The class not actual!!!
 class XmlEditor {
 
     XmlEditor(String itemId, String percent, File file) {

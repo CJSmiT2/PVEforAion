@@ -9,7 +9,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,38 +21,23 @@ import java.util.ArrayList;
 public class DropPercentEditor {
     
     public static void main(String[] args) {
-        System.out.println("Aion drop editor v0.1 by SmiT started!");
+        System.out.println("Aion drop editor v0.2 by SmiT. Starting...");
         System.out.println("Enter path for folder with files:");
         
-        String path = readInput();
-
-        
-        File folder = new File(path);
-        if (!folder.exists()) {
-            System.err.println("Folder not found!" + folder.getAbsolutePath());
-            System.exit(1);
-        }
-        
+        File folder = getFolderWithXmlFiles(readInput());
         
         System.out.println("Enter item_id: ");
         String itemId = readInput();
-        System.out.println("Enter percent: ");
-        String percent = readInput();
         
-        ArrayList<File> xmlFiles = FilesUtil.getFilesInFolder(folder.getAbsolutePath());
+        ArrayList<File> xmlFiles = getXmlFiles(folder);
         
-        for (File file:xmlFiles){
-            if (file.getName().contains(".xml")){
-                XmlEditor editor = new XmlEditor(itemId, percent, file);
-            }
-            
-        }
+        XmlEditor2 editor = new XmlEditor2(itemId, xmlFiles);
         
         System.out.println("Complete and exit!");
  
     }
 
-    private static String readInput() {
+    public static String readInput() {
         String input = null;
         BufferedReader br = null;
 
@@ -75,9 +63,58 @@ public class DropPercentEditor {
         if (input!=null){
             return input;
         } else {
-            throw new RuntimeException("Input cannot be NULL!");
+            return "";
         }
 
+    }
+
+    private static File getFolderWithXmlFiles(String path) {
+        File folder = new File(path);
+        if (!folder.exists()) {
+            System.out.println("Folder not found! Trying to find files in current folder...");
+            boolean result = xmlFilesExist();
+            if (!result){
+                System.err.println("Xml files fon found. Exit...");
+                System.exit(1);
+            } else {
+                return getCurrentPath();
+            }
+        }
+        throw new RuntimeException();
+    }
+    
+    private static ArrayList<File> getXmlFiles(File folder){
+        ArrayList<File> xmlFiles = new ArrayList();
+        ArrayList<File> filesInFolder = FilesUtil.getFilesInFolder(folder);
+        
+        for (File file:filesInFolder){
+            if (file.getName().contains(".xml")){
+                xmlFiles.add(file);
+            }
+        }
+        
+        return xmlFiles;
+    }
+
+    private static boolean xmlFilesExist() {
+        File folder = getCurrentPath();
+        System.out.println("Current folder: " + folder.getAbsolutePath());
+        ArrayList<File> files = FilesUtil.getFilesInFolder(folder);
+        for (File file:files){
+            if (file.getName().contains(".xml")){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private static File getCurrentPath(){
+        try {
+            return new File(DropPercentEditor.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile();
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(DropPercentEditor.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException();
+        }
     }
     
 }
