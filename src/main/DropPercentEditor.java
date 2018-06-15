@@ -21,17 +21,19 @@ import java.util.logging.Logger;
 public class DropPercentEditor {
     
     public static void main(String[] args) {
-        System.out.println("Aion drop editor v0.2 by SmiT. Starting...");
-        System.out.println("Enter path for folder with files:");
+        System.out.println("Aion drop editor v0.3 by SmiT. Starting...");
+        System.out.println("Enter path for folder with files (Enter to skip):");
         
         File folder = getFolderWithXmlFiles(readInput());
         
-        System.out.println("Enter item_id: ");
-        String itemId = readInput();
+        System.out.println("Enter percent for replace: ");
+        String percent = readInput();
+        System.out.println("Enter new percent: ");
+        String newPercent = readInput();
         
         ArrayList<File> xmlFiles = getXmlFiles(folder);
         
-        XmlEditor2 editor = new XmlEditor2(itemId, xmlFiles);
+        XmlEditor3 editor = new XmlEditor3(percent, newPercent, xmlFiles);
         
         System.out.println("Complete and exit!");
  
